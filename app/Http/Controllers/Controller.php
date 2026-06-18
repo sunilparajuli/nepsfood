@@ -5,16 +5,20 @@ namespace App\Http\Controllers;
 /**
  * @OA\Info(
  *      version="1.0.0",
- *      title="Food Safety API Documentation",
- *      description="API documentation for Food Safety App Backend (Migrated to Laravel)",
- *      @OA\Contact(
- *          email="admin@example.com"
- *      ),
+ *      title="Nepsfood API",
+ *      description="API Documentation for Nepsfood Application",
  * )
  *
  * @OA\Server(
- *      url="http://localhost:8000",
- *      description="Demo API Server"
+ *      url="http://nepsfood.nepstrading.com.au",
+ *      description="Production API Server"
+ * )
+ *
+ * @OA\SecurityScheme(
+ *     securityScheme="bearerAuth",
+ *     type="http",
+ *     scheme="bearer",
+ *     bearerFormat="JWT"
  * )
  */
 abstract class Controller
