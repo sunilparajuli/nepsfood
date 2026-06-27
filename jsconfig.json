@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "noUncheckedSideEffectImports": false,
+    "paths": {
+      "*": ["./resources/js/mantis/*"],
+      "components/*": ["./resources/js/mantis/components/*"]
+    }
+  },
+  "exclude": ["node_modules"],
+  "include": ["resources/js/mantis", "**/*.js", "**/*.jsx", "resources/js/mantis/**/*"]
+}

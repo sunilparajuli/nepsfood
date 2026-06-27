@@ -21,6 +21,9 @@ class JwtMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         $token = $request->bearerToken();
+        if (!$token && $request->has('token')) {
+            $token = $request->query('token');
+        }
         
         if (!$token) {
             return response()->json(['detail' => 'Authentication credentials were not provided.'], 401);

@@ -9,6 +9,7 @@ use App\Http\Controllers\FormSubmissionController;
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\SharedFileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SystemSettingController;
 use App\Http\Middleware\JwtMiddleware;
 
 // Auth Routes
@@ -28,6 +29,15 @@ Route::middleware([JwtMiddleware::class])->group(function () {
     Route::apiResource('/forms/users', UserController::class);
     Route::apiResource('/forms/folders', FolderController::class);
     Route::apiResource('/forms/files', SharedFileController::class);
+    
+    // Settings API
+    Route::get('/forms/settings', [SystemSettingController::class, 'index']);
+    Route::put('/forms/settings', [SystemSettingController::class, 'update']);
+    Route::get('/forms/firebase-config', [SystemSettingController::class, 'firebaseConfig']);
+    
+    // Notifications
+    Route::get('/forms/notifications', [\App\Http\Controllers\NotificationController::class, 'index']);
+    Route::post('/forms/users/fcm-token', [UserController::class, 'updateFcmToken']);
     
     Route::get('/forms/submissions/{submission}/export_pdf', [FormSubmissionController::class, 'export_pdf']);
 });

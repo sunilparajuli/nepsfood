@@ -19,6 +19,7 @@ class Role extends Model
         'can_manage_files',
         'can_view_reports',
         'is_admin_override',
+        'permissions',
     ];
 
     protected $casts = [
@@ -30,6 +31,7 @@ class Role extends Model
         'can_manage_files' => 'boolean',
         'can_view_reports' => 'boolean',
         'is_admin_override' => 'boolean',
+        'permissions' => 'array',
     ];
 
     public function users()

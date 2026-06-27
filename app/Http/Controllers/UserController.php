@@ -60,4 +60,16 @@ class UserController extends Controller
         $user->delete();
         return response()->json(null, 204);
     }
+    public function updateFcmToken(Request $request)
+    {
+        $request->validate([
+            'fcm_token' => 'required|string'
+        ]);
+
+        $user = auth()->user();
+        $user->fcm_token = $request->fcm_token;
+        $user->save();
+
+        return response()->json(['message' => 'Token updated successfully']);
+    }
 }

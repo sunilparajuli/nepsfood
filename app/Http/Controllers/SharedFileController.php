@@ -11,7 +11,9 @@ class SharedFileController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $query = SharedFile::orderByDesc('created_at');
+        // Exclude the heavy 'file' column from the index list to avoid massive payloads
+        $query = SharedFile::select('id', 'title', 'folder_id', 'uploaded_by', 'created_at', 'updated_at')
+            ->orderByDesc('created_at');
         
         $folderId = $request->query('folder', 'root');
         if ($folderId === 'root') {
@@ -31,12 +33,8 @@ class SharedFileController extends Controller
     {
         $data = $request->all();
         $data['uploaded_by'] = Auth::id();
-        
-        if ($request->hasFile('file')) {
-            $path = $request->file('file')->store('shared_files', 'public');
-            $data['file'] = $path;
-        }
 
+        // Expects 'title' and 'file' (base64) to be provided directly in $data
         $sharedFile = SharedFile::create($data);
         return response()->json($sharedFile, 201);
     }
@@ -49,10 +47,6 @@ class SharedFileController extends Controller
     public function update(Request $request, SharedFile $file)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $path = $request->file('file')->store('shared_files', 'public');
-            $data['file'] = $path;
-        }
         $file->update($data);
         return response()->json($file);
     }
