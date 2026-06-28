@@ -226,7 +226,7 @@ export default function RolesList() {
                                 <Grid item xs={12} key={template.id}>
                                     <Paper variant="outlined" sx={{ p: 2, display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: { xs: 'flex-start', sm: 'center' }, justifyContent: 'space-between' }}>
                                         <Typography variant="subtitle1" fontWeight="bold" sx={{ mb: { xs: 1, sm: 0 }, width: '250px' }}>
-                                            {template.title}
+                                            {template.name}
                                         </Typography>
                                         <Box display="flex" gap={2} flexWrap="wrap">
                                             <FormControlLabel 
