@@ -28,7 +28,7 @@ export default function Navigation() {
   }
 
   const role = currentUser?.role || {};
-  const isAdmin = !!role.is_admin_override;
+  const isAdmin = !!role.is_admin_override || !!currentUser?.is_superuser;
 
   const filteredItems = menuItem.items.map(group => {
     if (group.id === 'group-dashboard' && group.children) {
