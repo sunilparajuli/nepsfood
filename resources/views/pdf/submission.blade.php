@@ -118,7 +118,7 @@
             $value = $data[$fieldName] ?? null;
         @endphp
 
-        @if($field['type'] === 'text' || $field['type'] === 'date' || $field['type'] === 'select')
+        @if($field['type'] === 'text' || $field['type'] === 'number' || $field['type'] === 'date' || $field['type'] === 'time' || $field['type'] === 'select')
             <div class="field-group">
                 <span class="field-label">{{ $field['label'] }}:</span>
                 <span class="field-value">{{ is_array($value) ? implode(', ', $value) : $value }}</span>

@@ -1,0 +1,34 @@
+#!/usr/bin/expect -f
+set timeout -1
+set password "aBcd12345x"
+
+# Copy deploy script
+spawn scp -o StrictHostKeyChecking=no deploy.sh root@170.64.175.81:/root/deploy.sh
+expect {
+    "password:" {
+        send "$password\r"
+    }
+}
+expect eof
+
+# Execute deploy script
+spawn ssh -o StrictHostKeyChecking=no root@170.64.175.81
+expect {
+    "password:" {
+        send "$password\r"
+    }
+}
+expect {
+    "# " {
+        send "chmod +x /root/deploy.sh && /root/deploy.sh\r"
+    }
+    "$ " {
+        send "chmod +x /root/deploy.sh && /root/deploy.sh\r"
+    }
+}
+expect {
+    -re "(# |\\$ )" {
+        send "exit\r"
+    }
+}
+expect eof
