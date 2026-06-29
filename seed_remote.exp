@@ -1,0 +1,10 @@
+#!/usr/bin/expect -f
+set timeout -1
+spawn ssh -o StrictHostKeyChecking=no root@170.64.175.81
+expect "password:"
+send "OnePiece@2026!\r"
+expect "#"
+send "cd /var/www/nepsfood && php artisan migrate:fresh --seed --force\r"
+expect "#"
+send "exit\r"
+expect eof

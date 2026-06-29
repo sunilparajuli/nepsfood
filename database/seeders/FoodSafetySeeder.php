@@ -88,7 +88,7 @@ class FoodSafetySeeder extends Seeder
             [$cleanTemplate, ["date" => "2026-02-27", "cleaning_task" => "Floor deep clean", "assigned_to" => "Cleaning Team A", "time_completed" => "22:00", "supervisor_sign_off" => "M. Scott", "remarks" => "Done well"]],
         ];
 
-        FormSubmission::truncate();
+        FormSubmission::query()->delete();
 
         $count = 0;
         $statuses = ["Approved", "Pending", "Draft"];

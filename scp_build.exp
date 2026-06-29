@@ -1,0 +1,6 @@
+#!/usr/bin/expect -f
+set timeout -1
+spawn scp -o StrictHostKeyChecking=no -r /Users/hisoka/flutter_apps/food\ safety/backend/public/build root@170.64.175.81:/var/www/nepsfood/public/
+expect "password:"
+send "OnePiece@2026!\r"
+expect eof
