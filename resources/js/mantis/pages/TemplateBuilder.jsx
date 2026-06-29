@@ -31,6 +31,8 @@ export default function TemplateBuilder() {
     const [department, setDepartment] = useState('');
     const [version, setVersion] = useState('1.0');
     const [issueDate, setIssueDate] = useState('');
+    const [layoutType, setLayoutType] = useState('standard');
+    const [instructions, setInstructions] = useState('');
     const [fields, setFields] = useState([]);
     const [error, setError] = useState(null);
 
@@ -48,6 +50,8 @@ export default function TemplateBuilder() {
             setDepartment(data.department);
             setVersion(data.version);
             setIssueDate(data.issue_date ? data.issue_date.split('T')[0] : '');
+            setLayoutType(data.layout_type || 'standard');
+            setInstructions(data.instructions || '');
             
             let parsed = [];
             if (data.schema) {
@@ -106,6 +110,8 @@ export default function TemplateBuilder() {
                 department,
                 version,
                 issue_date: issueDate,
+                layout_type: layoutType,
+                instructions,
                 schema: fields
             };
 
@@ -173,6 +179,33 @@ export default function TemplateBuilder() {
                         variant="outlined"
                     />
                 </Grid>
+                <Grid item xs={12} md={3}>
+                    <TextField
+                        select
+                        fullWidth
+                        label="Layout Type"
+                        value={layoutType}
+                        onChange={(e) => setLayoutType(e.target.value)}
+                        variant="outlined"
+                    >
+                        <MenuItem value="standard">Standard</MenuItem>
+                        <MenuItem value="log">Log Layout (A4 Tabular)</MenuItem>
+                    </TextField>
+                </Grid>
+                {layoutType === 'log' && (
+                    <Grid item xs={12}>
+                        <TextField
+                            fullWidth
+                            multiline
+                            rows={3}
+                            label="Check / Instructions (Bottom Text)"
+                            value={instructions}
+                            onChange={(e) => setInstructions(e.target.value)}
+                            variant="outlined"
+                            helperText="This text will be displayed below the table."
+                        />
+                    </Grid>
+                )}
             </Grid>
 
             <Box mt={4} mb={2} display="flex" justifyContent="space-between" alignItems="center">
@@ -244,6 +277,20 @@ export default function TemplateBuilder() {
                                 label="Required Field"
                             />
                         </Grid>
+
+                        {layoutType === 'log' && (
+                            <Grid item xs={12} md={4}>
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={field.is_footer_field || false}
+                                            onChange={(e) => updateField(index, 'is_footer_field', e.target.checked)}
+                                        />
+                                    }
+                                    label="Render as Footer Field (at bottom)"
+                                />
+                            </Grid>
+                        )}
 
                         {field.type === 'select' && (
                             <Grid item xs={12} md={8}>

@@ -15,6 +15,8 @@ class FormTemplate extends Model
         'schema',
         'version',
         'issue_date',
+        'layout_type',
+        'instructions',
     ];
 
     protected $casts = [
